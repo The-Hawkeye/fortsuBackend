@@ -66,7 +66,9 @@ exports.deleteEntry = async(req,res)=>{
 
         await Students.findOneAndDelete({email:email});
 
-        res.json({status:"deleted"})
+        const students = await  Students.find();
+
+        res.json({status:"deleted", students:students})
     }
     catch(err)
     {
