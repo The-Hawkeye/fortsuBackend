@@ -57,3 +57,22 @@ exports.deleteData = async(req,res)=>{
         })
     }
 }
+
+exports.deleteEntry = async(req,res)=>{
+    try{
+        const email = req.params.email;
+
+        console.log(email);
+
+        await Students.findOneAndDelete({email:email});
+
+        res.json({status:"deleted"})
+    }
+    catch(err)
+    {
+        res.json({
+            status:"fail",
+            error:err
+        })
+    }
+}

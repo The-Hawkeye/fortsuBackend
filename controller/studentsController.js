@@ -1,6 +1,7 @@
 const fs = require("fs");
 const xlsx = require("xlsx");
 const Students = require("../models/students");
+const sendEmail = require("../Email/sendEmail");
 
 exports.extractDataFromExcel = async(req, res) => {
     const filePath = "/Users/anubhavmaurya/Desktop/FORTSU Assessment/Task1/data/SampleData1.numbers";
@@ -86,6 +87,8 @@ exports.extractDataFromExcel = async(req, res) => {
                     mobileNumber:i.Mobile
 
                 })
+                //Prompting an email to completely fill their details
+                await sendEmail({email:i.Email});
             }
 
 
