@@ -86,7 +86,7 @@ exports.assignScholarships = async (req,res) => {
       const students = await Students.find({}, 'name email rollNumber mobileNumber CGPA attendence');
   
       const eligibleStudents = students.filter(student => {
-        return parseFloat(student.CGPA) > 6 && parseFloat(student.attendence) > 75 && students.scholarshipSent==false;
+        return parseFloat(student.CGPA) > 6 && parseFloat(student.attendence) > 75 && student.scholarshipSent==false;
       });
   
       console.log(`Eligible students for scholarship: ${eligibleStudents.map(student => student.name).join(', ')}`);
@@ -95,7 +95,7 @@ exports.assignScholarships = async (req,res) => {
       for (const student of eligibleStudents) {
         const emailText = `Dear ${student.name},\n\nCongratulations! You have been selected for a scholarship. Please contact us for further details.`;
         await sendEmail({email:student.email, subject: 'Scholarship Assigned', text:emailText});
-        await Students.findOneAndUpdate({email:student.email},{scholarshipSent:true});
+        await Students.findOneAndUpdate({email:student.email},{"scholarshipSent":true});
 ;
       }
 
