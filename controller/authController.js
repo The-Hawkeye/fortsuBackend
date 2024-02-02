@@ -95,7 +95,7 @@ exports.assignScholarships = async (req,res) => {
       for (const student of eligibleStudents) {
         const emailText = `Dear ${student.name},\n\nCongratulations! You have been selected for a scholarship. Please contact us for further details.`;
         await sendEmail({email:student.email, subject: 'Scholarship Assigned', text:emailText});
-        await Students.findOneAndUpdate({email:student.email},{"scholarshipSent":true});
+        await Students.findOneAndUpdate({email:student.email},{scholarshipSent:true});
 ;
       }
 
