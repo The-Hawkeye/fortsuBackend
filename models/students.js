@@ -39,7 +39,7 @@ const studentsSchema = new mongoose.Schema({
         type:String
     },
     attendence:{
-        type:Number
+        type:String
     }
 
 })
