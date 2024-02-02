@@ -40,8 +40,11 @@ const studentsSchema = new mongoose.Schema({
     },
     attendence:{
         type:String
+    },
+    scholarshipSent:{
+        type:Boolean,
+        default:false
     }
-
 })
 
 const Students = mongoose.model("Students", studentsSchema);
