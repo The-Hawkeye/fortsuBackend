@@ -1,5 +1,6 @@
 const Admin = require("../models/admin")
 const Students = require("../models/students")
+const sendEmail = require("../Email/sendEmail")
 exports.login = async(req,res)=>{
     console.log("hello");
     const {email,password} = req.body;
@@ -78,3 +79,30 @@ exports.deleteEntry = async(req,res)=>{
         })
     }
 }
+
+
+exports.assignScholarships = async (req,res) => {
+    try {
+      const students = await Students.find({}, 'name email rollNumber mobileNumber CGPA attendence');
+  
+      const eligibleStudents = students.filter(student => {
+        return parseFloat(student.CGPA) > 6 && parseFloat(student.attendence) > 75;
+      });
+  
+      console.log(`Eligible students for scholarship: ${eligibleStudents.map(student => student.name).join(', ')}`);
+  
+      // Send email notification to eligible students
+      for (const student of eligibleStudents) {
+        const emailText = `Dear ${student.name},\n\nCongratulations! You have been selected for a scholarship. Please contact us for further details.`;
+        await sendEmail({email:student.email, subject: 'Scholarship Assigned', text:emailText});
+      }
+
+      res.json({status:"success", eligibleStudents:eligibleStudents})
+  
+    } catch (err) {
+      console.error(err);
+      res.status({status:"fail"})
+    }
+  };
+  
+//   assignScholarships();

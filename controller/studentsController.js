@@ -88,7 +88,11 @@ exports.extractDataFromExcel = async(req, res) => {
 
                 })
                 //Prompting an email to completely fill their details
-                await sendEmail({email:i.Email});
+                await sendEmail({
+                                email:i.Email,
+                                subject:"Regarding Filling The Details",
+                                text:"Kindy fill the complete details to continue the scholarship further process"
+                            });
             }
 
 

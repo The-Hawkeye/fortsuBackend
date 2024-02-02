@@ -13,8 +13,8 @@ const sendEmail = async(options)=>{
       const mailOptions = {
         from: "Anubhav Maurya anubhawmaurya@gmail.com",
         to:options.email,
-        subject:"Regarding Filling The Details",
-        text:"Kindy fill the complete details to continue the scholarship further process"
+        subject:options.subject,
+        text:options.text
       }
 
 
