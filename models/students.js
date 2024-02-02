@@ -34,6 +34,12 @@ const studentsSchema = new mongoose.Schema({
     },
     currentYear:{
         type:String
+    },
+    CGPA:{
+        type:String
+    },
+    attendence:{
+        type:Number
     }
 
 })
